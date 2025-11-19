@@ -39,8 +39,9 @@ public class MyString {
             return false;
         }
 
-        if (str1.length() == 0 || str2.length() == 0) {
-            return false;
+        // For some reason, containing an empty string is fine...
+        if (str2.length() == 0) {
+            return true;
         }
 
         for (int i = 0; i < str1.length(); i++) {
