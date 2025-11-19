@@ -37,7 +37,7 @@ public class ArrCharOps {
      */
     public static char charAt(char[] arr, int index) {
         // Replace the following statement with your code
-        return 0;
+        return arr[index];
     }
 
     /** If the two arrays have the same value in every index, 
@@ -45,7 +45,16 @@ public class ArrCharOps {
      */
     public static boolean equals(char[] arr1, char[] arr2) {
         // Replace the following statement with your code
-        return false;
+        if (arr1.length != arr2.length) {
+            return false;
+        }
+
+        for (int i = 0; i < arr1.length; i++) {
+            if (charAt(arr1, i) != charAt(arr2, i)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** Returns the index within the given array of the first occurrence of the given character.
@@ -53,6 +62,11 @@ public class ArrCharOps {
      */
     public static int indexOf(char[] arr, char ch) {
         // Replace the following statement with your code
+        for (int i = 0; i < arr.length; i++) {
+            if (ch == charAt(arr, i)) {
+                return i;
+            }
+        }
         return -1;
     }
 
@@ -60,6 +74,11 @@ public class ArrCharOps {
      */
     public static int indexOf(char[] arr, char ch, int fromIndex) {
         // Replace the following statement with your code
+        for (int i = fromIndex; i < arr.length; i++) {
+            if (ch == charAt(arr, i)) {
+                return i;
+            }
+        }
         return -1;
     }
 
@@ -68,6 +87,11 @@ public class ArrCharOps {
      */
     public static int lastIndexOf(char[] arr, char ch) {
         // Replace the following statement with your code
+        for (int i = arr.length - 1; i > 0; i--) {
+            if (ch == charAt(arr, i)) {
+                return i;
+            }
+        }
         return -1;
     }
 
@@ -75,7 +99,15 @@ public class ArrCharOps {
     */
     public static char[] concat(char[] arr1, char[] arr2) {
         // Replace the following statement with your code
-        return null;
+        char[] newArr = new char[arr1.length + arr2.length];
+        for (int i = 0; i < arr1.length; i++) {
+            newArr[i] = charAt(arr1, i);
+        }
+        for (int i = 0; i < arr2.length; i++) {
+            newArr[arr1.length + i] = charAt(arr2, i);
+        }
+
+        return newArr;
     }
 
     /** Returns a new array that can be described as a sub-array of this array.
@@ -85,7 +117,12 @@ public class ArrCharOps {
      */     
     public static char[] subArray(char[] arr, int beginIndex, int endIndex) {
         // Replace the following statement with your code
-        return null;
+        int arrLength = endIndex - beginIndex;
+        char[] outArr  = new char[arrLength];
+        for (int i = 0; i < arrLength; i++) {
+            outArr[i] = charAt(arr, i + beginIndex);
+        }
+        return outArr;
     }
 
      /** Returns a single integer that represents the given array. This integer is sometimes 
@@ -97,7 +134,12 @@ public class ArrCharOps {
      */
     public static long hashCode(char[] arr) {
         // Replace the following statement with your code
-        return 0;
+        int arrLength = arr.length;
+        long hashValue = 0;
+        for (int i = 0; i < arrLength; i++) {
+            hashValue += (long)((int)(charAt(arr, i)) * Math.pow(7, arrLength - i - 1));
+        }
+        return hashValue;
     }
 
     /**
@@ -126,7 +168,36 @@ public class ArrCharOps {
      *         return -2 if there is an error with the input.
      */
     public static int compareTo(String str1, String str2) {
-        // Replace the following statement with your code
-        return 0;
+        final int STR1_LESS_THAN_STR2_RETURN_CODE = -1;
+        final int STR1_EQUAL_STR2_RETURN_CODE = 0;
+        final int STR2_LESS_THAN_STR1_RETURN_CODE = 1;
+        final int INPUT_ERROR_RETURN_CODE = -2;
+
+        int smallerLength =  Math.min(str1.length(), str2.length());
+        // Takes care if at least one of them is an empty string, which is invalid input.
+        if (smallerLength == 0) {
+            return INPUT_ERROR_RETURN_CODE;
+        }
+        for (int i = 0; i < smallerLength; i++) {
+            char charStr1 = str1.charAt(i);
+            char charStr2 = str2.charAt(i);
+            if (charStr1 < charStr2) {
+                return STR1_LESS_THAN_STR2_RETURN_CODE;
+            }
+            else if (charStr1 > charStr2) {
+                return STR2_LESS_THAN_STR1_RETURN_CODE;
+            }
+        }
+
+        // We reach this section of the function only if both strings are equal character to character thus far.
+
+        if (str1.length() < str2.length()) {
+            return STR1_LESS_THAN_STR2_RETURN_CODE;
+        }
+        if (str1.length() > str2.length()) {
+            return STR2_LESS_THAN_STR1_RETURN_CODE;
+        }
+        // Only the equal option is left.
+        return STR1_EQUAL_STR2_RETURN_CODE;
     }
 }
