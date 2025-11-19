@@ -1,4 +1,5 @@
 public class MyString {
+    public static final int CAPITAL_TO_LOWER_CHAR_DELTA = 32;
     public static void main(String[] args) {
         System.out.println("Testing lowercase:");
         System.out.println("UnHappy : " + lowerCase("UnHappy"));
@@ -19,12 +20,41 @@ public class MyString {
     /** Returns the lowercase version of the given string. */
     public static String lowerCase(String str) {
         // Replace the following statement with your code
-        return null;
+        String outStr = "";
+        for (int i = 0; i < str.length(); i++) {
+            char currentChar = str.charAt(i);
+            if (currentChar >= 'A' && currentChar <= 'Z' ) {
+                outStr += (char)(currentChar + CAPITAL_TO_LOWER_CHAR_DELTA);
+            }
+            else {
+                outStr += currentChar;
+            }
+        }
+        return outStr;
     }
 
     /** If str1 contains str2, returns true; otherwise returns false. */
     public static boolean contains(String str1, String str2) {
-        // Replace the following statement with your code
+        if (str1.length() < str2.length()) {
+            return false;
+        }
+
+        if (str1.length() == 0 || str2.length() == 0) {
+            return false;
+        }
+
+        for (int i = 0; i < str1.length(); i++) {
+            boolean found = true;
+            for (int j = 0; j < str2.length() ; j++) {
+                if (str1.charAt(i + j) != str2.charAt(j)) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                return true;
+            }
+        }
         return false;
     }
 }
