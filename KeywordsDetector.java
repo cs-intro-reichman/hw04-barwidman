@@ -1,4 +1,5 @@
 public class KeywordsDetector {
+    public static final int CAPITAL_TO_LOWER_CHAR_DELTA = 32;
     public static void main(String[] args) {
         String[] sentences = {
             "Our product will transform the market",
@@ -18,6 +19,22 @@ public class KeywordsDetector {
         detectAndPrint(sentences, keywords);
     }
 
+    // Using this function because I assume I'm not allowed to use `String.toLowerCase`
+    public static String lowerCase(String str) {
+        // Replace the following statement with your code
+        String outStr = "";
+        for (int i = 0; i < str.length(); i++) {
+            char currentChar = str.charAt(i);
+            if (currentChar >= 'A' && currentChar <= 'Z' ) {
+                outStr += (char)(currentChar + CAPITAL_TO_LOWER_CHAR_DELTA);
+            }
+            else {
+                outStr += currentChar;
+            }
+        }
+        return outStr;
+    }
+
     // Iterates through all the sentences.
     // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
@@ -25,7 +42,7 @@ public class KeywordsDetector {
         for (int i = 0; i < sentences.length; i++) {
             String currentSentence = sentences[i];
             for (int j = 0; j < keywords.length; j++) {
-                if (currentSentence.toLowerCase().contains(keywords[j].toLowerCase())) {
+                if (currentSentence.toLowerCase().contains(lowerCase(keywords[j]))) {
                     System.out.println(currentSentence);
                 }
             }

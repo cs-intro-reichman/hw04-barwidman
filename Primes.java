@@ -9,7 +9,7 @@ public class Primes {
 
         int countPrimes = 0;
         // Starting with 2 as it is the first prime number, don't care about the rest.
-        for (int p = 2; p * p <= N; p++) {
+        for (int p = 2; p <= Math.sqrt(N); p++) {
             if (primeIndexes[p]) {
                 for (int i = p * p ; i <= N ; i +=p) {
                     primeIndexes[i] = false;
