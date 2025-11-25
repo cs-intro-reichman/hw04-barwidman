@@ -47,6 +47,10 @@ public class MyString {
         for (int i = 0; i < str1.length(); i++) {
             boolean found = true;
             for (int j = 0; j < str2.length() ; j++) {
+                // Annoying edge case.
+                if (i + j >= str1.length()) {
+                    return false;
+                }
                 if (str1.charAt(i + j) != str2.charAt(j)) {
                     found = false;
                     break;

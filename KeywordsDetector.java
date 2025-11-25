@@ -35,6 +35,34 @@ public class KeywordsDetector {
         return outStr;
     }
 
+    public static boolean contains(String str1, String str2) {
+        if (str1.length() < str2.length()) {
+            return false;
+        }
+
+        // For some reason, containing an empty string is fine...
+        if (str2.length() == 0) {
+            return true;
+        }
+
+        for (int i = 0; i < str1.length(); i++) {
+            boolean found = true;
+            for (int j = 0; j < str2.length() ; j++) {
+                if (i + j >= str1.length()) {
+                    return false;
+                }
+                if (str1.charAt(i + j) != str2.charAt(j)) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Iterates through all the sentences.
     // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
@@ -42,7 +70,7 @@ public class KeywordsDetector {
         for (int i = 0; i < sentences.length; i++) {
             String currentSentence = sentences[i];
             for (int j = 0; j < keywords.length; j++) {
-                if (currentSentence.toLowerCase().contains(lowerCase(keywords[j]))) {
+                if (contains(lowerCase(currentSentence),(lowerCase(keywords[j])))) {
                     System.out.println(currentSentence);
                 }
             }
